@@ -15,37 +15,71 @@
 </head>
 
 <body data-ng-app="myApp" data-ng-controller="myCtrl">
-    <div class="container">
-        <nav>
-            <div class="nav-wrapper">
-                <a href="#!" class="brand-logo">MTG Game Manager</a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li class="active"><a href="index.html">Player Management</a></li>
-                    <li><a href="tools.html">Game Tools</a></li>
-                    <li><a href="cardLookup.html">Card Lookup</a></li>
-                </ul>
-                <ul class="side-nav" id="mobile-demo">
-                    <li class="active"><a href="index.html">Player Management</a></li>
-                    <li><a href="tools.html">Game Tools</a></li>
-                    <li><a href="cardLookup.html">Card Lookup</a></li>
-                </ul>
-            </div>
-        </nav>
 
+    <!--navbar-fixed + mobile menu issue: https://github.com/Dogfalo/materialize/issues/3844-->
+    <!--long story short, keep the mobile ul outside of the fixed div-->
+    <header>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper">
+                    <a href="#!" class="brand-logo">MTG Game Manager</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li class="active"><a href="index.html">Player Management</a></li>
+                        <li><a href="tools.html">Game Tools</a></li>
+                        <li><a href="cardLookup.html">Card Lookup</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <ul class="side-nav" id="mobile-demo">
+            <li class="active"><a href="index.html">Player Management</a></li>
+            <li><a href="tools.html">Game Tools</a></li>
+            <li><a href="cardLookup.html">Card Lookup</a></li>
+        </ul>
+    </header>
+
+
+
+    <div class="container">
         <div data-ng-repeat="p in players">
             <div class="card blue">
                 <div class="card-content white-text">
-                    <span class="card-title">{{p.name}}</span>
+                    <div class="row">
+                        <div class="col s9">
+                            <span class="card-title">{{p.name}}</span>
+                        </div>
+                        <div class="col s3">
+                            <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="deletePlayer(p)"><i class="material-icons">delete</i></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-content blue lighten-1 white-text">
-                    <a class="waves-effect waves-light btn black white-text">Delete</a>
+                    <div class="row">
+                        <div class="col s6">life total here</div>
+                        <div class="col s6">poison, commander damage and experience counters here</div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="fixed-action-btn">
-              <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+
+        <div id="modalAddPlayer" class="modal bottom-sheet">
+            <div class="modal-content">
+                <h4>Add Player</h4>
+                <label for="playerNameInput">Player name:</label>
+                <input type="text" id="playerNameInput" name="playerNameInput" data-ng-model="playerName">
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addPlayer()">Add</a>
+            </div>
         </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large waves-effect waves-light red" href="#modalAddPlayer"><i class="material-icons">add</i></a>
+        </div>
+
+        
     </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -54,9 +88,7 @@
     <script type="text/javascript" src="js/script.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $(".button-collapse").sideNav();
-        });
+
     </script>
 
 </body>
