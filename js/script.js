@@ -24,7 +24,7 @@ app.controller("myCtrl", function ($scope) {
         $scope.savePlayers();
     }
 
-    $scope.savePlayers = function() {
+    $scope.savePlayers = function () {
         sessionStorage.setItem("players", JSON.stringify($scope.players));
     }
 });
