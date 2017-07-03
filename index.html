@@ -20,70 +20,77 @@
 
     <!--navbar-fixed + mobile menu issue: https://github.com/Dogfalo/materialize/issues/3844-->
     <!--long story short, keep the mobile ul outside of the fixed div-->
-    <header>
-        <div class="navbar-fixed">
-            <nav>
-                <div class="nav-wrapper red darken-3">
-                    <a href="#!" class="brand-logo">MTG Game Manager</a>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                    <ul class="right hide-on-med-and-down">
-                        <li class="active"><a href="index.html">Player Management</a></li>
-                        <li><a href="tools.html">Game Tools</a></li>
-                        <li><a href="cardLookup.html">Card Lookup</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <ul class="side-nav" id="mobile-demo">
-            <li class="active"><a href="index.html">Player Management</a></li>
-            <li><a href="tools.html">Game Tools</a></li>
-            <li><a href="cardLookup.html">Card Lookup</a></li>
-        </ul>
-    </header>
-
-
-
     <div class="container">
-        <div data-ng-repeat="p in players track by $index">
-            <div class="card blue hoverable">
-                <div class="card-content white-text">
-                    <div class="row">
-                        <div class="col s9">
-                            <span class="card-title">{{p.name}}</span>
+        <nav class="nav-extended">
+            <div class="nav-wrapper red darken-3">
+                <a href="#" class="brand-logo center">MTG Game Manager</a>
+            </div>
+            <div class="nav-content red darken-3">
+                <ul class="tabs tabs-fixed-width tabs-transparent">
+                    <li class="tab"><a href="#gameTools">Game Tools</a></li>
+                    <li class="tab"><a class="active" href="#playerManagement">Players</a></li>
+                    <li class="tab"><a href="#cardLookup">Card Lookup</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="playerManagement">
+            <div data-ng-repeat="p in players track by $index">
+                <div class="card blue hoverable">
+                    <div class="card-content white-text">
+                        <div class="row">
+                            <div class="col s9">
+                                <span class="card-title">{{p.name}}</span>
+                            </div>
+                            <div class="col s3">
+                                <a class="waves-effect waves-light btn-floating right grey darken-4 white-text" data-ng-click="deletePlayer(p)"><i class="material-icons">delete</i></a>
+                            </div>
                         </div>
-                        <div class="col s3">
-                            <a class="waves-effect waves-light btn-floating right grey darken-4 white-text" data-ng-click="deletePlayer(p)"><i class="material-icons">delete</i></a>
+                    </div>
+                    <div class="card-content blue lighten-1 white-text">
+                        <div class="row">
+                            <div class="col s6">
+                                <p>Life: {{p.life}}</p>
+                                <p class="range-field">
+                                    <input type="range" data-ng-change="savePlayers()" min="0" max="40" data-ng-model="p.life"/>
+                                </p>
+                            </div>
+                            <div class="col s6">poison, commander damage and experience counters here</div>
                         </div>
                     </div>
                 </div>
-                <div class="card-content blue lighten-1 white-text">
-                    <div class="row">
-                        <div class="col s6">life total here</div>
-                        <div class="col s6">poison, commander damage and experience counters here</div>
+            </div>
+
+            <div class="white-text" data-ng-hide="players.length > 0">
+                <p class="center-align">No players!</p>
+            </div>
+
+            <div id="modalAddPlayer" class="modal bottom-sheet">
+                <div class="modal-content grey lighten-3">
+                    <h4>Add Player</h4>
+                    <div class="row input-field">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input type="text" id="playerNameInput" data-ng-model="playerName">
+                        <label for="playerNameInput">Player name</label>
                     </div>
                 </div>
+                <div class="modal-footer grey lighten-3">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                    <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addPlayer()">Add</a>
+                </div>
+            </div>
+
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large waves-effect waves-light red darken-3" href="#modalAddPlayer"><i class="material-icons">add</i></a>
             </div>
         </div>
+        <div id="gameTools">
 
-        <div class="white-text" data-ng-hide="players.length > 0">
-            <p class="center-align">No players!</p>
+        </div>
+        <div id="cardLookup">
+
         </div>
 
-        <div id="modalAddPlayer" class="modal bottom-sheet">
-            <div class="modal-content grey lighten-3">
-                <h4>Add Player</h4>
-                <label for="playerNameInput">Player name:</label>
-                <input type="text" id="playerNameInput" name="playerNameInput" data-ng-model="playerName">
-            </div>
-            <div class="modal-footer grey lighten-3">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-                <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addPlayer()">Add</a>
-            </div>
-        </div>
-
-        <div class="fixed-action-btn">
-            <a class="btn-floating btn-large waves-effect waves-light red darken-3" href="#modalAddPlayer"><i class="material-icons">add</i></a>
-        </div>
 
 
     </div>
