@@ -57,15 +57,15 @@
                                 <div class="collapsible-body white black-text">
                                     <div class="row">
                                         <p class="range-field">
-                                            <input type="range" data-ng-change="savePlayers()" min="0" max="40" data-ng-model="p.life" />
+                                            <input type="range" class="lifeScroll" data-ng-change="savePlayers()" min="0" max="40" data-ng-model="p.life" />
                                         </p>
                                     </div>
                                     <div class="row">
                                         <div class="col s6">
-                                            <a class="waves-effect waves-light btn" data-ng-click="adjustPlayerLife(p, -1)"><b>-</b></a>
+                                            <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="adjustPlayerLife(p, -1)"><b>-</b></a>
                                         </div>
                                         <div class="col s6">
-                                            <a class="waves-effect waves-light right btn" data-ng-click="adjustPlayerLife(p, 1)"><b>+</b></a>
+                                            <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="adjustPlayerLife(p, 1)"><b>+</b></a>
                                         </div>
                                     </div>
                                 </div>
@@ -73,9 +73,23 @@
                             <li>
                                 <div class="collapsible-header white black-text"><i class="material-icons">grade</i>Commander Damage</div>
                                 <div class="collapsible-body white black-text">
-                                    <div class="row">
-                                        <p>Commander damage goes here</p>
+                                    <div class="row" data-ng-repeat="otherPlayer in p.damage track by $index" data-ng-show="otherPlayer.name != ''">
+                                        <p>{{otherPlayer.name}}</p>
+                                        <div class="row">
+                                            <p class="range-field">
+                                                <input type="range" class="lifeScroll" data-ng-model="otherPlayer.damageReceived" data-ng-change="savePlayers()" min="0" max="21" />
+                                            </p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s6">
+                                                <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="adjustCommanderDamage(p, otherPlayer, -1)"><b>-</b></a>
+                                            </div>
+                                            <div class="col s6">
+                                                <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="adjustCommanderDamage(p, otherPlayer, 1)"><b>+</b></a>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
                             </li>
                             <li>
