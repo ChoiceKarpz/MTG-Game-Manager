@@ -11,12 +11,10 @@ app.controller("myCtrl", function ($scope) {
     $scope.playerName;
 
     $scope.addPlayer = function () {
-        var newPlayer = { name: $scope.playerName, life: 40, damage: [{name: '', damageReceived: 0}] };
+        var newPlayer = { name: $scope.playerName, life: 40, damage: [{ name: '', damageReceived: 0 }], experience: 0, poison: 0 };
 
         for (var i = 0; i < $scope.players.length; i++)
             newPlayer.damage.push({ name: $scope.players[i].name, damageReceived: 0 });
-
-        alert(newPlayer.damage);
 
         $scope.players.push(newPlayer);
         $scope.playerName = "";
@@ -50,15 +48,26 @@ app.controller("myCtrl", function ($scope) {
     }
 
     $scope.adjustPlayerLife = function (playertoAlter, difference) {
-        var index = $scope.players.indexOf(playertoAlter);
-        $scope.players[index].life += difference;
+        playertoAlter.life += difference;
         $scope.savePlayers();
     }
 
-    $scope.adjustCommanderDamage = function (defendingPlayer, attackingPlayer, difference) {
-        var indexDefender = $scope.players.indexOf(defendingPlayer);
-        var indexAttacker = $scope.players[indexDefender].damage.indexOf(attackingPlayer);
-        $scope.players[indexDefender].damage[indexAttacker].damageReceived += difference;
+    $scope.adjustCommanderDamage = function (attackingPlayer, difference) {
+        attackingPlayer.damageReceived += difference;
+        $scope.savePlayers();
+    }
+
+    $scope.adjustExperienceCounter = function (playertoAlter, difference) {
+        playertoAlter.experience += difference;
+        if (playertoAlter.experience < 0)
+            playertoAlter.experience = 0;
+        $scope.savePlayers();
+    }
+
+    $scope.adjustPoisonCounter = function(playertoAlter, difference) {
+        playertoAlter.poison += difference;
+        if (playertoAlter.poison < 0)
+            playertoAlter.poison = 0;
         $scope.savePlayers();
     }
 });
