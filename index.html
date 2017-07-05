@@ -49,21 +49,38 @@
                     </div>
                     <div class="card-content blue lighten-1 white-text">
                         <div class="row">
-                            <div class="col s6">
-                                <p>Life: {{p.life}}</p>
-                                <p class="range-field">
-                                    <input type="range" data-ng-change="savePlayers()" min="0" max="40" data-ng-model="p.life"/>
-                                </p>
-                            </div>
-                            <div class="col s6">poison, commander damage and experience counters here</div>
+                            <p>Life: {{p.life}}</p>
+                            <p class="range-field">
+                                <input type="range" data-ng-change="savePlayers()" min="0" max="40" data-ng-model="p.life" />
+                            </p>
                         </div>
+                        <ul class="collapsible" data-collapsible="expandable">
+                            <li>
+                                <div class="collapsible-header white black-text"><i class="material-icons">grade</i>Commander Damage</div>
+                                <div class="collapsible-body white black-text">
+                                    <div class="row">
+                                        <p>Commander damage goes here</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header white black-text"><i class="material-icons">swap_vertical_circle</i>Counters</div>
+                                <div class="collapsible-body white black-text">
+                                    <div class="row">
+                                        <p>Player counters go here</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
+
                 </div>
             </div>
 
             <div class="white-text" data-ng-hide="players.length > 0">
                 <p class="center-align">No players!</p>
             </div>
+            
 
             <div id="modalAddPlayer" class="modal bottom-sheet">
                 <div class="modal-content grey lighten-3">
