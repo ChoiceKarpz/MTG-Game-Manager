@@ -55,9 +55,19 @@
                             <li>
                                 <div class="collapsible-header white black-text"><i class="material-icons">person_pin</i>Life: {{p.life}}</div>
                                 <div class="collapsible-body white black-text">
-                                    <p class="range-field">
-                                        <input type="range" data-ng-change="savePlayers()" min="0" max="40" data-ng-model="p.life" />
-                                    </p>
+                                    <div class="row">
+                                        <p class="range-field">
+                                            <input type="range" data-ng-change="savePlayers()" min="0" max="40" data-ng-model="p.life" />
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <a class="waves-effect waves-light btn" data-ng-click="adjustPlayerLife(p, -1)"><b>-</b></a>
+                                        </div>
+                                        <div class="col s6">
+                                            <a class="waves-effect waves-light right btn" data-ng-click="adjustPlayerLife(p, 1)"><b>+</b></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </li>
                             <li>
@@ -96,7 +106,7 @@
                     </div>
                 </div>
                 <div class="modal-footer grey lighten-3">
-                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                    <a href="#!" data-ng-click="refreshPlayers()" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
                     <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addPlayer()">Add</a>
                 </div>
             </div>

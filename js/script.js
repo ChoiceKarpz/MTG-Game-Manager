@@ -15,8 +15,9 @@ app.controller("myCtrl", function ($scope) {
         $scope.players.push(newPlayer);
         $scope.playerName = "";
         $scope.savePlayers();
-        document.getElementById("playerNameInput").focus();
+        $scope.setNameInputFocus();
     }
+
 
     $scope.deletePlayer = function (playertoDelete) {
         var index = $scope.players.indexOf(playertoDelete);
@@ -27,10 +28,23 @@ app.controller("myCtrl", function ($scope) {
     $scope.savePlayers = function () {
         sessionStorage.setItem("players", JSON.stringify($scope.players));
     }
+
+    $scope.setNameInputFocus = function () {
+        document.getElementById("playerNameInput").focus();
+    }
+
+    $scope.refreshPlayers = function () {
+        $('.collapsible').collapsible();
+    }
+
+    $scope.adjustPlayerLife = function (playertoAlter, difference) {
+        var index = $scope.players.indexOf(playertoAlter);
+        $scope.players[index].life += difference;
+        $scope.savePlayers();
+    }
 });
 
 $(document).ready(function () {
-    $(".button-collapse").sideNav();
-    $('.modal').modal();
+    $('.modal').modal({ dismissible: false });
     $('.collapsible').collapsible();
 });
