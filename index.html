@@ -35,6 +35,9 @@
         </nav>
 
         <div id="playerManagement">
+            <div class="white-text" data-ng-hide="players.length > 0">
+                <p class="center-align">No players!</p>
+            </div>
             <div data-ng-repeat="p in players track by $index">
                 <div class="card blue hoverable">
                     <div class="card-content white-text">
@@ -130,10 +133,19 @@
                 </ul>
             </div>
         </div>
-    </div>
 
-    <div class="white-text" data-ng-hide="players.length > 0">
-        <p class="center-align">No players!</p>
+        <div id="gameTools">
+            <div class="white-text">
+                <p class="center-align">Not implemented yet!</p>
+            </div>
+        </div>
+
+        <div id="cardLookup">
+            <div class="white-text">
+                <p class="center-align">Not implemented yet!</p>
+            </div>
+        </div>
+
     </div>
 
 

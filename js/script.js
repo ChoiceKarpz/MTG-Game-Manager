@@ -64,7 +64,7 @@ app.controller("myCtrl", function ($scope) {
         $scope.savePlayers();
     }
 
-    $scope.adjustPoisonCounter = function(playertoAlter, difference) {
+    $scope.adjustPoisonCounter = function (playertoAlter, difference) {
         playertoAlter.poison += difference;
         if (playertoAlter.poison < 0)
             playertoAlter.poison = 0;
