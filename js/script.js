@@ -18,7 +18,7 @@ app.controller("myCtrl", function ($scope) {
 
         $scope.players.push(newPlayer);
         $scope.playerName = "";
-        $scope.savePlayers();
+
         $scope.setNameInputFocus();
 
         for (var i = 0; i < $scope.players.length; i++) {
@@ -26,6 +26,8 @@ app.controller("myCtrl", function ($scope) {
                 $scope.players[i].damage.push({ name: newPlayer.name, damageReceived: 0 });
             }
         }
+
+        $scope.savePlayers();
     }
 
 
