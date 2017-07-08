@@ -13,23 +13,25 @@ app.controller("myCtrl", function ($scope) {
     $scope.indexPlayerToDelete;
 
     $scope.addPlayer = function () {
-        var newPlayer = { id: $scope.currentID, name: $scope.playerName, life: 40, damage: [{ name: '', damageReceived: 0 }], experience: 0, poison: 0 };
+        var newPlayer = { id: $scope.currentID, name: $scope.playerName, life: 40, damage: [], experience: 0, poison: 0 };
+
+        alert(newPlayer.id);
 
         $scope.currentID++;
 
+        //add all old players to commander damage for new players
         for (var i = 0; i < $scope.players.length; i++)
             newPlayer.damage.push({ id: $scope.players[i].id, name: $scope.players[i].name, damageReceived: 0 });
+
+        //add new player to all old players
+        for (var i = 0; i < $scope.players.length; i++) {
+            $scope.players[i].damage.push({ id: newPlayer.id, name: newPlayer.name, damageReceived: 0 });
+        }
 
         $scope.players.push(newPlayer);
         $scope.playerName = "";
 
         $scope.setNameInputFocus();
-
-        for (var i = 0; i < $scope.players.length; i++) {
-            if ($scope.players[i] != newPlayer) {
-                $scope.players[i].damage.push({ id: newPlayer.id, name: newPlayer.name, damageReceived: 0 });
-            }
-        }
 
         $scope.savePlayers();
     }
@@ -55,6 +57,7 @@ app.controller("myCtrl", function ($scope) {
         $scope.players.splice($scope.indexPlayerToDelete, 1);
         $scope.savePlayers();
         $('#modalDeletePlayer').modal('close');
+        Materialize.toast('Player deleted!', 4000)
     }
 
     $scope.savePlayers = function () {

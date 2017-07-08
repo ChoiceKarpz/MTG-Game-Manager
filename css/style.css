@@ -2,6 +2,11 @@ body {
     background-color: #212121;
 }
 
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
 input[type=range]::-webkit-slider-thumb {
     background-color: #00695c;
 }

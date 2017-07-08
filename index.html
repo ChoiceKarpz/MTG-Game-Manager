@@ -43,10 +43,13 @@
                 <div class="card blue hoverable">
                     <div class="card-content white-text">
                         <div class="row">
-                            <div class="col s9">
-                                <span class="card-title">{{p.name}}</span>
+                            <div class="col s8">
+                                <span class="card-title">{{p.name}}: {{p.life}}</span>
                             </div>
-                            <div class="col s3">
+                            <div class="col s2">
+                                <a class="waves-effect waves-light btn-floating right grey darken-4 white-text" href="#{{p.id}}"><i class="material-icons">more</i></a>
+                            </div>
+                            <div class="col s2">
                                 <a class="waves-effect waves-light btn-floating right grey darken-4 white-text" href="#modalDeletePlayer" data-ng-click="getPlayerToDelete(p)"><i class="material-icons">delete</i></a>
                             </div>
                         </div>
@@ -54,80 +57,86 @@
                             <p class="center-align"><b>Player is out of life!</b></p>
                         </div>
                     </div>
-                    <div class="card-content blue lighten-1 white-text">
-                        <ul class="collapsible" data-collapsible="accordion">
-                            <li>
-                                <div class="collapsible-header white black-text"><i class="material-icons">person_pin</i>Life: {{p.life}}</div>
-                                <div class="collapsible-body white black-text">
-                                    <div class="row">
-                                        <p class="range-field">
-                                            <input type="range" class="lifeScroll" data-ng-change="savePlayers()" min="0" max="100" data-ng-model="p.life" />
-                                        </p>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s6">
-                                            <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="adjustPlayerLife(p, -1)"><b>-</b></a>
-                                        </div>
-                                        <div class="col s6">
-                                            <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="adjustPlayerLife(p, 1)"><b>+</b></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="collapsible-header white black-text"><i class="material-icons">grade</i>Commander Damage</div>
-                                <div class="collapsible-body white black-text">
-                                    <div class="row" data-ng-repeat="otherPlayer in p.damage track by $index" data-ng-show="otherPlayer.name != ''">
-                                        <p>{{otherPlayer.name}}: {{otherPlayer.damageReceived}}</p>
+                    <div ng-attr-id="{{p.id}}" class="modal">
+                        <div class="modal-content">
+                            <h4 class="center">{{p.name}}</h4>
+                            <ul class="collapsible popout" data-collapsible="accordion">
+                                <li>
+                                    <div class="collapsible-header white black-text"><i class="material-icons">person_pin</i>Life: {{p.life}}</div>
+                                    <div class="collapsible-body white black-text">
                                         <div class="row">
                                             <p class="range-field">
-                                                <input type="range" data-ng-model="otherPlayer.damageReceived" data-ng-change="savePlayers()" min="0" max="21" />
+                                                <input type="range" class="lifeScroll" data-ng-change="savePlayers()" min="0" max="100" data-ng-model="p.life" />
                                             </p>
                                         </div>
                                         <div class="row">
                                             <div class="col s6">
-                                                <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="adjustCommanderDamage(otherPlayer, -1)"><b>-</b></a>
+                                                <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="adjustPlayerLife(p, -1)"><b>-</b></a>
                                             </div>
                                             <div class="col s6">
-                                                <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="adjustCommanderDamage(otherPlayer, 1)"><b>+</b></a>
+                                                <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="adjustPlayerLife(p, 1)"><b>+</b></a>
                                             </div>
                                         </div>
                                     </div>
+                                </li>
+                                <li>
+                                    <div class="collapsible-header white black-text"><i class="material-icons">grade</i>Commander Damage</div>
+                                    <div class="collapsible-body white black-text">
+                                        <div class="row" data-ng-repeat="otherPlayer in p.damage track by $index">
+                                            <p>{{otherPlayer.name}}: {{otherPlayer.damageReceived}}</p>
+                                            <div class="row">
+                                                <p class="range-field">
+                                                    <input type="range" data-ng-model="otherPlayer.damageReceived" data-ng-change="savePlayers()" min="0" max="21" />
+                                                </p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s6">
+                                                    <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="adjustCommanderDamage(otherPlayer, -1)"><b>-</b></a>
+                                                </div>
+                                                <div class="col s6">
+                                                    <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="adjustCommanderDamage(otherPlayer, 1)"><b>+</b></a>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                </div>
-                            </li>
-                            <li>
-                                <div class="collapsible-header white black-text"><i class="material-icons">swap_vert</i>Counters</div>
-                                <div class="collapsible-body white black-text">
-                                    <div class="row">
-                                        <div class="col s12">
-                                            <p class="center-align">Experience counters: {{p.experience}}</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="collapsible-header white black-text"><i class="material-icons">swap_vert</i>Counters</div>
+                                    <div class="collapsible-body white black-text">
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <p class="center-align">Experience counters: {{p.experience}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s6">
+                                                <a class="waves-effect waves-light left teal darken-3 btn" data-ng-click="adjustExperienceCounter(p, -1)"><b>-</b></a>
+                                            </div>
+                                            <div class="col s6">
+                                                <a class="waves-effect waves-light right teal darken-3 btn" data-ng-click="adjustExperienceCounter(p, 1)"><b>+</b></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <p class="center-align">Poison counters: {{p.poison}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s6">
+                                                <a class="waves-effect waves-light left teal darken-3 btn" data-ng-click="adjustPoisonCounter(p, -1)"><b>-</b></a>
+                                            </div>
+                                            <div class="col s6">
+                                                <a class="waves-effect waves-light right teal darken-3 btn" data-ng-click="adjustPoisonCounter(p, 1)"><b>+</b></a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col s6">
-                                            <a class="waves-effect waves-light left teal darken-3 btn" data-ng-click="adjustExperienceCounter(p, -1)"><b>-</b></a>
-                                        </div>
-                                        <div class="col s6">
-                                            <a class="waves-effect waves-light right teal darken-3 btn" data-ng-click="adjustExperienceCounter(p, 1)"><b>+</b></a>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12">
-                                            <p class="center-align">Poison counters: {{p.poison}}</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s6">
-                                            <a class="waves-effect waves-light left teal darken-3 btn" data-ng-click="adjustPoisonCounter(p, -1)"><b>-</b></a>
-                                        </div>
-                                        <div class="col s6">
-                                            <a class="waves-effect waves-light right teal darken-3 btn" data-ng-click="adjustPoisonCounter(p, 1)"><b>+</b></a>
-                                        </div>
-                                    </div>
-                                </div>
-
-
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                        </div>
                     </div>
                 </div>
                 </li>
@@ -168,6 +177,7 @@
     <div id="modalDeletePlayer" class="modal">
         <div class="modal-content grey lighten-3">
             <h4>Delete player?</h4>
+            <p>This cannot be undone.</p>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
@@ -176,7 +186,7 @@
     </div>
 
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large waves-effect waves-light red darken-3" href="#modalAddPlayer"><i class="material-icons">add</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light red darken-3 z-depth-4" href="#modalAddPlayer"><i class="material-icons">add</i></a>
     </div>
     </div>
     <div id="gameTools">
