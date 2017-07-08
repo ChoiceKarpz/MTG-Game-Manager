@@ -8,14 +8,17 @@ app.controller("myCtrl", function ($scope) {
         $scope.players = JSON.parse(sessionStorage.getItem("players"));
     }
 
+    $scope.currentID = $scope.players.length;
     $scope.playerName;
     $scope.indexPlayerToDelete;
 
     $scope.addPlayer = function () {
-        var newPlayer = { name: $scope.playerName, life: 40, damage: [{ name: '', damageReceived: 0 }], experience: 0, poison: 0 };
+        var newPlayer = { id: $scope.currentID, name: $scope.playerName, life: 40, damage: [{ name: '', damageReceived: 0 }], experience: 0, poison: 0 };
+
+        $scope.currentID++;
 
         for (var i = 0; i < $scope.players.length; i++)
-            newPlayer.damage.push({ name: $scope.players[i].name, damageReceived: 0 });
+            newPlayer.damage.push({ id: $scope.players[i].id, name: $scope.players[i].name, damageReceived: 0 });
 
         $scope.players.push(newPlayer);
         $scope.playerName = "";
@@ -24,7 +27,7 @@ app.controller("myCtrl", function ($scope) {
 
         for (var i = 0; i < $scope.players.length; i++) {
             if ($scope.players[i] != newPlayer) {
-                $scope.players[i].damage.push({ name: newPlayer.name, damageReceived: 0 });
+                $scope.players[i].damage.push({ id: newPlayer.id, name: newPlayer.name, damageReceived: 0 });
             }
         }
 
@@ -37,6 +40,18 @@ app.controller("myCtrl", function ($scope) {
     }
 
     $scope.deletePlayer = function () {
+        //delete the player from other players under commander damage, before deleting themselves
+
+        for (var i = 0; i < $scope.players.length; i++) {
+            if (i != $scope.indexPlayerToDelete) {
+                for (var j = 0; j < $scope.players[i].damage.length; j++) {
+                    if ($scope.players[i].damage[j].id == $scope.players[$scope.indexPlayerToDelete].id) {
+                        $scope.players[i].damage.splice(j, 1);
+                    }
+                }
+            }
+        }
+
         $scope.players.splice($scope.indexPlayerToDelete, 1);
         $scope.savePlayers();
         $('#modalDeletePlayer').modal('close');
