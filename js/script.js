@@ -9,6 +9,7 @@ app.controller("myCtrl", function ($scope) {
     }
 
     $scope.playerName;
+    $scope.indexPlayerToDelete;
 
     $scope.addPlayer = function () {
         var newPlayer = { name: $scope.playerName, life: 40, damage: [{ name: '', damageReceived: 0 }], experience: 0, poison: 0 };
@@ -31,10 +32,14 @@ app.controller("myCtrl", function ($scope) {
     }
 
 
-    $scope.deletePlayer = function (playertoDelete) {
-        var index = $scope.players.indexOf(playertoDelete);
-        $scope.players.splice(index, 1);
+    $scope.getPlayerToDelete = function (playerToDelete) {
+        $scope.indexPlayerToDelete = $scope.players.indexOf(playerToDelete);
+    }
+
+    $scope.deletePlayer = function () {
+        $scope.players.splice($scope.indexPlayerToDelete, 1);
         $scope.savePlayers();
+        $('#modalDeletePlayer').modal('close');
     }
 
     $scope.savePlayers = function () {

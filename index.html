@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MTG Game Manager</title>
+    <link rel="icon" href="images/favicon.ico">
 
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -23,7 +24,7 @@
     <div class="container">
         <nav class="nav-extended">
             <div class="nav-wrapper red darken-3">
-                <a href="#" class="brand-logo center">MTG Game Manager</a>
+                <a href="#" class="brand-logo center">MTG Game Manager <sup>&#169;</sup></a>
             </div>
             <div class="nav-content red darken-3">
                 <ul class="tabs tabs-fixed-width tabs-transparent">
@@ -46,7 +47,7 @@
                                 <span class="card-title">{{p.name}}</span>
                             </div>
                             <div class="col s3">
-                                <a class="waves-effect waves-light btn-floating right grey darken-4 white-text" data-ng-click="deletePlayer(p)"><i class="material-icons">delete</i></a>
+                                <a class="waves-effect waves-light btn-floating right grey darken-4 white-text" href="#modalDeletePlayer" data-ng-click="getPlayerToDelete(p)"><i class="material-icons">delete</i></a>
                             </div>
                         </div>
                         <div class="row red-text white-text" data-ng-show="p.life == 0">
@@ -149,7 +150,7 @@
     </div>
 
 
-    <div id="modalAddPlayer" class="modal bottom-sheet">
+    <div id="modalAddPlayer" class="modal">
         <div class="modal-content grey lighten-3">
             <h4>Add Player</h4>
             <div class="row input-field">
@@ -161,6 +162,16 @@
         <div class="modal-footer grey lighten-3">
             <a href="#!" data-ng-click="refreshPlayers()" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addPlayer()">Add</a>
+        </div>
+    </div>
+
+    <div id="modalDeletePlayer" class="modal">
+        <div class="modal-content grey lighten-3">
+            <h4>Delete player?</h4>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="deletePlayer()">Delete</a>
         </div>
     </div>
 
