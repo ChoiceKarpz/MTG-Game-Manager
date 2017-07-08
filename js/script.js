@@ -15,8 +15,6 @@ app.controller("myCtrl", function ($scope) {
     $scope.addPlayer = function () {
         var newPlayer = { id: $scope.currentID, name: $scope.playerName, life: 40, damage: [], experience: 0, poison: 0 };
 
-        alert(newPlayer.id);
-
         $scope.currentID++;
 
         //add all old players to commander damage for new players
