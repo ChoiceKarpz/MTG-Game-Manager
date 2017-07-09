@@ -47,17 +47,21 @@
                                 <div class="border col s10">
                                     <span class="card-title">
                                     <p><b>{{p.name}}</b></p>
-                                    <p>&hearts;: {{p.life}}, EXP: {{p.experience}}, Poison: {{p.poison}}</p>
+                                    <p>&hearts; {{p.life}}</p>
                                 </span>
                                 </div>
                             </a>
-
                             <div class="col s2">
                                 <a class="waves-effect waves-light btn-floating right grey darken-4 white-text" href="#modalDeletePlayer" data-ng-click="getPlayerToDelete(p)"><i class="material-icons">delete</i></a>
                             </div>
                         </div>
-                        <div class="row red-text white-text" data-ng-show="p.life == 0">
+                        <div class="row white-text" data-ng-show="p.life == 0">
                             <p class="center-align"><b>Player is out of life!</b></p>
+                        </div>
+                        <div ng-repeat="otherPlayer in p.damage track by $index">  
+                            <div class="row white-text" data-ng-show="otherPlayer.damageReceived >= 21">
+                            <p class="center-align"><b>Lethal commander damage from {{otherPlayer.name}}!</b></p>
+                        </div>
                         </div>
                     </div>
                     <div ng-attr-id="{{p.id}}" class="modal">
