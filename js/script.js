@@ -95,12 +95,18 @@ app.controller("myCtrl", function ($scope) {
             playertoAlter.poison = 0;
         $scope.savePlayers();
     }
+
 });
+
 
 $(document).ready(function () {
     $('.collapsible').collapsible();
     $('.modal').modal();
-    $('#modalAddPlayer').modal({ dismissible: false });
-   
-     $('.carousel.carousel-slider').carousel({fullWidth: true});
+    $('#modalAddPlayer').modal({
+        complete: function () {
+            $('.collapsible').collapsible();
+            $('.modal').modal();
+        }
+    }
+    );
 });
