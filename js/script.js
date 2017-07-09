@@ -1,5 +1,5 @@
 var app = angular.module("myApp", []);
-app.controller("myCtrl", function ($scope) {
+app.controller("myCtrl", function ($scope, $timeout) {
 
     if (sessionStorage.getItem("players") === null) {
         $scope.players = [];
@@ -32,6 +32,12 @@ app.controller("myCtrl", function ($scope) {
         $scope.setNameInputFocus();
 
         $scope.savePlayers();
+
+        $timeout(function () {
+            $scope.refreshPlayers()
+        }, 0);
+
+
     }
 
 
@@ -60,6 +66,11 @@ app.controller("myCtrl", function ($scope) {
 
     $scope.savePlayers = function () {
         sessionStorage.setItem("players", JSON.stringify($scope.players));
+    }
+
+    $scope.refreshPlayers = function () {
+        $('.collapsible').collapsible();
+        $('.modal').modal();
     }
 
     $scope.setNameInputFocus = function () {
@@ -96,11 +107,5 @@ app.controller("myCtrl", function ($scope) {
 $(document).ready(function () {
     $('.collapsible').collapsible();
     $('.modal').modal();
-    $('#modalAddPlayer').modal({
-        complete: function () {
-            $('.collapsible').collapsible();
-            $('.modal').modal();
-        }
-    }
-    );
+
 });
