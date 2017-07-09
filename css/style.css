@@ -8,7 +8,7 @@ a {
 }
 
 /*make the buttons within the life edit collapsible the same width*/
-.lifeButtons > .row > .col > .btn {
+.row > .col.s6 > .btn {
    width: 90%;
 }
 

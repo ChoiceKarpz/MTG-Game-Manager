@@ -73,7 +73,7 @@ app.controller("myCtrl", function ($scope) {
     }
 
     $scope.adjustPlayerLife = function (playertoAlter, difference) {
-        playertoAlter.life += difference;
+        playertoAlter.life = Math.round(playertoAlter.life + difference);
         $scope.savePlayers();
     }
 
