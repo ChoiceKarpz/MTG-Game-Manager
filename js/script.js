@@ -66,12 +66,6 @@ app.controller("myCtrl", function ($scope) {
         document.getElementById("playerNameInput").focus();
     }
 
-    $scope.refreshPlayers = function () {
-        $('.collapsible').collapsible();
-        $('.modal').modal();
-        $('#modalAddPlayer').modal({ dismissible: false });
-    }
-
     $scope.adjustPlayerLife = function (playertoAlter, difference) {
         playertoAlter.life = Math.round(playertoAlter.life + difference);
         $scope.savePlayers();
