@@ -69,6 +69,7 @@ app.controller("myCtrl", function ($scope) {
     $scope.refreshPlayers = function () {
         $('.collapsible').collapsible();
         $('.modal').modal();
+        $('#modalAddPlayer').modal({ dismissible: false });
     }
 
     $scope.adjustPlayerLife = function (playertoAlter, difference) {
@@ -97,6 +98,7 @@ app.controller("myCtrl", function ($scope) {
 });
 
 $(document).ready(function () {
-    $('.modal').modal({ dismissible: false });
     $('.collapsible').collapsible();
+    $('.modal').modal();
+    $('#modalAddPlayer').modal({ dismissible: false });
 });
