@@ -7,6 +7,11 @@ a {
   text-decoration: inherit; /* no underline */
 }
 
+/*make the buttons within the life edit collapsible the same width*/
+.lifeButtons > .row > .col > .btn {
+   width: 90%;
+}
+
 input[type=range]::-webkit-slider-thumb {
     background-color: #00695c;
 }

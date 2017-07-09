@@ -101,4 +101,6 @@ $(document).ready(function () {
     $('.collapsible').collapsible();
     $('.modal').modal();
     $('#modalAddPlayer').modal({ dismissible: false });
+   
+     $('.carousel.carousel-slider').carousel({fullWidth: true});
 });

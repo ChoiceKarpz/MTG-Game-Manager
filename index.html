@@ -43,20 +43,19 @@
                 <div class="card blue hoverable">
                     <div class="card-content white-text">
                         <div class="row">
-                            <div class="col s10">
-                                <span class="card-title">
+                            <a href="#{{p.id}}">
+                                <div class="border col s10">
+                                    <span class="card-title">
                                     <p><b>{{p.name}}</b></p>
                                     <p>&hearts;: {{p.life}}, EXP: {{p.experience}}, Poison: {{p.poison}}</p>
                                 </span>
-                            </div>
+                                </div>
+                            </a>
+
                             <div class="col s2">
                                 <a class="waves-effect waves-light btn-floating right grey darken-4 white-text" href="#modalDeletePlayer" data-ng-click="getPlayerToDelete(p)"><i class="material-icons">delete</i></a>
                             </div>
                         </div>
-                        <div class="row">
-                            <a class="waves-effect waves-light btn left grey darken-4 white-text" href="#{{p.id}}">More...</a>
-                        </div>
-
                         <div class="row red-text white-text" data-ng-show="p.life == 0">
                             <p class="center-align"><b>Player is out of life!</b></p>
                         </div>
@@ -67,18 +66,29 @@
                             <ul class="collapsible" data-collapsible="accordion">
                                 <li>
                                     <div class="collapsible-header white black-text"><i class="material-icons">person_pin</i>Life: {{p.life}}</div>
-                                    <div class="collapsible-body white black-text">
-                                        <div class="row">
-                                            <p class="range-field">
-                                                <input type="range" class="lifeScroll" data-ng-change="savePlayers()" min="0" max="100" data-ng-model="p.life" />
-                                            </p>
-                                        </div>
+                                    <div class="lifeButtons collapsible-body white black-text">
                                         <div class="row">
                                             <div class="col s6">
                                                 <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="adjustPlayerLife(p, -1)"><b>-</b></a>
                                             </div>
                                             <div class="col s6">
                                                 <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="adjustPlayerLife(p, 1)"><b>+</b></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s6">
+                                                <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="adjustPlayerLife(p, -2)"><b>--</b></a>
+                                            </div>
+                                            <div class="col s6">
+                                                <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="adjustPlayerLife(p, 2)"><b>++</b></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s6">
+                                                <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="adjustPlayerLife(p, -p.life/2)"><b>1/2</b></a>
+                                            </div>
+                                            <div class="col s6">
+                                                <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="adjustPlayerLife(p, p.life)"><b>x2</b></a>
                                             </div>
                                         </div>
                                     </div>
