@@ -9,6 +9,7 @@ app.controller("myCtrl", function ($scope, $timeout) {
     }
 
     $scope.currentID = $scope.players.length;
+
     $scope.playerName;
     $scope.newCounterName;
     $scope.indexWorkingPlayer;
