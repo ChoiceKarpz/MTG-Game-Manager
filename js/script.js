@@ -10,9 +10,8 @@ app.controller("myCtrl", function ($scope, $timeout) {
 
     $scope.currentID = $scope.players.length;
     $scope.playerName;
-    $scope.indexPlayerToDelete;
     $scope.newCounterName;
-    $scope.indexPlayerToAddCounter;
+    $scope.indexWorkingPlayer;
 
     $scope.addPlayer = function () {
         var newPlayer = { id: $scope.currentID, name: $scope.playerName, life: 40, damage: [], counters: [] };
@@ -43,28 +42,24 @@ app.controller("myCtrl", function ($scope, $timeout) {
     }
 
 
-    $scope.getPlayerToDelete = function (playerToDelete) {
-        $scope.indexPlayerToDelete = $scope.players.indexOf(playerToDelete);
-    }
-
-    $scope.getPlayerToAddCounter = function (playerToAddCounter) {
-        $scope.indexPlayerToAddCounter = $scope.players.indexOf(playerToAddCounter);
+    $scope.getWorkingPlayer = function (player) {
+        $scope.indexWorkingPlayer = $scope.players.indexOf(player);
     }
 
     $scope.deletePlayer = function () {
         //delete the player from other players under commander damage, before deleting themselves
 
         for (var i = 0; i < $scope.players.length; i++) {
-            if (i != $scope.indexPlayerToDelete) {
+            if (i != $scope.indexWorkingPlayer) {
                 for (var j = 0; j < $scope.players[i].damage.length; j++) {
-                    if ($scope.players[i].damage[j].id == $scope.players[$scope.indexPlayerToDelete].id) {
+                    if ($scope.players[i].damage[j].id == $scope.players[$scope.indexWorkingPlayer].id) {
                         $scope.players[i].damage.splice(j, 1);
                     }
                 }
             }
         }
 
-        $scope.players.splice($scope.indexPlayerToDelete, 1);
+        $scope.players.splice($scope.indexWorkingPlayer, 1);
         $scope.savePlayers();
         $('#modalDeletePlayer').modal('close');
         Materialize.toast('Player deleted!', 4000);
@@ -98,9 +93,9 @@ app.controller("myCtrl", function ($scope, $timeout) {
     }
 
     $scope.addNewCounter = function() {
-        $scope.players[$scope.indexPlayerToAddCounter].counters.push({name: $scope.newCounterName, value: 0});
+        $scope.players[$scope.indexWorkingPlayer].counters.push({name: $scope.newCounterName, value: 0});
         $('#modalAddCounter').modal('close');
-        $scope.newCounterName = '';
+        $scope.newCounterName = "";
         $scope.savePlayers();
     }
 
