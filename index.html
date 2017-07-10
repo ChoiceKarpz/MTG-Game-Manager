@@ -28,9 +28,10 @@
             </div>
             <div class="nav-content red darken-3">
                 <ul class="tabs tabs-fixed-width tabs-transparent">
-                    <li class="tab"><a href="#gameTools">Game Tools</a></li>
                     <li class="tab"><a class="active" href="#playerManagement">Players</a></li>
-                    <li class="tab"><a href="#cardLookup">Card Lookup</a></li>
+                    <li class="tab"><a href="#gameLog">Log</a></li>
+                    <li class="tab"><a href="#gameTools">Tools</a></li>
+                    <li class="tab"><a href="#cardLookup">Lookup</a></li>
                 </ul>
             </div>
         </nav>
@@ -112,10 +113,10 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col s6">
-                                                                <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="adjustCommanderDamage(otherPlayer, -1)"><b>-</b></a>
+                                                                <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="adjustCommanderDamage(p, otherPlayer, -1)"><b>-</b></a>
                                                             </div>
                                                             <div class="col s6">
-                                                                <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="adjustCommanderDamage(otherPlayer, 1)"><b>+</b></a>
+                                                                <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="adjustCommanderDamage(p, otherPlayer, 1)"><b>+</b></a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -133,10 +134,10 @@
                                                 <div class="collapsible-body">
                                                     <div class="row">
                                                         <div class="col s6">
-                                                            <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="alterCounter(counter, -1)"><b>-</b></a>
+                                                            <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="alterCounter(p, counter, -1)"><b>-</b></a>
                                                         </div>
                                                         <div class="col s6">
-                                                            <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="alterCounter(counter, 1)"><b>+</b></a>
+                                                            <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="alterCounter(p, counter, 1)"><b>+</b></a>
                                                         </div>
                                                     </div>
                                                     <p class="center-align"><a class="waves-effect waves-light grey darken-4 btn" data-ng-click="deleteCounter(p, counter)">Delete Counter</a></p>
@@ -175,6 +176,12 @@
             <div class="white-text">
                 <p class="center-align">Not implemented yet!</p>
             </div>
+        </div>
+
+        <div id="gameLog">
+            <ul class="collection">
+                <li class="collection-item grey lighten-3" data-ng-repeat="event in gameLog | orderBy:'$index':true">{{event}}</li>
+            </ul>
         </div>
 
     </div>

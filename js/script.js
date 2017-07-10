@@ -8,8 +8,14 @@ app.controller("myCtrl", function ($scope, $timeout) {
         $scope.players = JSON.parse(sessionStorage.getItem("players"));
     }
 
-    $scope.currentID = $scope.players.length;
+    if (sessionStorage.getItem("gameLog") === null) {
+        $scope.gameLog = [];
+    }
+    else {
+        $scope.gameLog = JSON.parse(sessionStorage.getItem("gameLog"));
+    }
 
+    $scope.currentID = $scope.players.length;
     $scope.playerName;
     $scope.newCounterName;
     $scope.indexWorkingPlayer;
@@ -29,9 +35,11 @@ app.controller("myCtrl", function ($scope, $timeout) {
         }
 
         $scope.players.push(newPlayer);
+        $scope.gameLog.push("Added " + newPlayer.name + " as a player");
         $scope.playerName = "";
 
         $scope.setNameInputFocus();
+
 
         $scope.savePlayers();
 
@@ -60,7 +68,9 @@ app.controller("myCtrl", function ($scope, $timeout) {
             }
         }
 
+        $scope.temp = $scope.players[$scope.indexWorkingPlayer].name;
         $scope.players.splice($scope.indexWorkingPlayer, 1);
+        $scope.gameLog.push("Deleted " + $scope.temp);
         $scope.savePlayers();
         $('#modalDeletePlayer').modal('close');
         Materialize.toast('Player deleted!', 4000);
@@ -72,6 +82,7 @@ app.controller("myCtrl", function ($scope, $timeout) {
 
     $scope.savePlayers = function () {
         sessionStorage.setItem("players", JSON.stringify($scope.players));
+        sessionStorage.setItem("gameLog", JSON.stringify($scope.gameLog));
     }
 
     $scope.refreshPlayers = function () {
@@ -85,33 +96,38 @@ app.controller("myCtrl", function ($scope, $timeout) {
 
     $scope.adjustPlayerLife = function (playertoAlter, difference) {
         playertoAlter.life = Math.round(playertoAlter.life + difference);
+        $scope.gameLog.push("Life of " + playertoAlter.name + " altered by " + difference + " (" + playertoAlter.life + ")");
         $scope.savePlayers();
+
     }
 
-    $scope.adjustCommanderDamage = function (attackingPlayer, difference) {
+    $scope.adjustCommanderDamage = function (defendingPlayer, attackingPlayer, difference) {
         attackingPlayer.damageReceived += difference;
+        $scope.gameLog.push("Commander damage to " + defendingPlayer.name + " by " + attackingPlayer.name + " altered by " + difference + " (" + attackingPlayer.damageReceived + ")");
         $scope.savePlayers();
     }
 
-    $scope.addNewCounter = function() {
-        $scope.players[$scope.indexWorkingPlayer].counters.push({name: $scope.newCounterName, value: 0});
+
+    $scope.addNewCounter = function () {
+        $scope.players[$scope.indexWorkingPlayer].counters.push({ name: $scope.newCounterName, value: 0 });
         $('#modalAddCounter').modal('close');
         $scope.newCounterName = "";
         $scope.savePlayers();
     }
 
-    $scope.alterCounter = function(counterToAlter, difference) {
+    $scope.alterCounter = function (player, counterToAlter, difference) {
         counterToAlter.value += difference;
+        $scope.gameLog.push(counterToAlter.name + " counters for " + player.name + " altered by " + difference + " (" + counterToAlter.value + ")");
         $scope.savePlayers();
     }
 
-    $scope.deleteCounter = function(player, counterToDelete) {
+    $scope.deleteCounter = function (player, counterToDelete) {
         for (var i = 0; i < player.counters.length; i++) {
-            if(player.counters[i] == counterToDelete) {
-                 player.counters.splice(i, 1);
-                 break;
+            if (player.counters[i] == counterToDelete) {
+                player.counters.splice(i, 1);
+                break;
             }
-               
+
         }
         $scope.savePlayers();
     }
@@ -136,5 +152,4 @@ app.controller("myCtrl", function ($scope, $timeout) {
 $(document).ready(function () {
     $('.collapsible').collapsible();
     $('.modal').modal();
-
 });
