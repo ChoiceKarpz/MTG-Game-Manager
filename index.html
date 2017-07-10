@@ -179,63 +179,65 @@
         </div>
 
         <div id="gameLog">
-            <ul class="collection">
-                <li class="collection-item grey lighten-3" data-ng-repeat="event in gameLog | orderBy:'$index':true">{{event}}</li>
-            </ul>
-        </div>
-
-    </div>
-
-
-    <div id="modalAddPlayer" class="modal">
-        <div class="modal-content grey lighten-3">
-            <h4>Add Player</h4>
-            <div class="row input-field">
-                <i class="material-icons prefix">account_circle</i>
-                <input type="text" id="playerNameInput" data-ng-model="playerName">
-                <label for="playerNameInput">Player name</label>
+            <div class="input-field">
+                <input class="transparent white-text" id="searchLog" type="search" data-ng-model="logQuery">
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <ul class="collection" data-ng-show="gameLog.length > 0">
+                    <li class="collection-item grey lighten-3" data-ng-repeat="event in gameLog | orderBy:'$index':true | filter : logQuery">{{event}}</li>
+                </ul>
             </div>
         </div>
-        <div class="modal-footer grey lighten-3">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-            <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addPlayer()">Add</a>
-        </div>
-    </div>
 
-    <div id="modalAddCounter" class="modal">
-        <div class="modal-content grey lighten-3">
-            <h4>Add counter</h4>
-            <div class="row input-field">
-                <i class="material-icons prefix">swap_vert</i>
-                <input type="text" id="counterNameInput" data-ng-model="newCounterName">
-                <label for="counterNameInput">Counter name</label>
+
+        <div id="modalAddPlayer" class="modal">
+            <div class="modal-content grey lighten-3">
+                <h4>Add Player</h4>
+                <div class="row input-field">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input type="text" id="playerNameInput" data-ng-model="playerName">
+                    <label for="playerNameInput">Player name</label>
+                </div>
+            </div>
+            <div class="modal-footer grey lighten-3">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addPlayer()">Add</a>
             </div>
         </div>
-        <div class="modal-footer grey lighten-3">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-            <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addNewCounter()">Add</a>
+
+        <div id="modalAddCounter" class="modal">
+            <div class="modal-content grey lighten-3">
+                <h4>Add counter</h4>
+                <div class="row input-field">
+                    <i class="material-icons prefix">swap_vert</i>
+                    <input type="text" id="counterNameInput" data-ng-model="newCounterName">
+                    <label for="counterNameInput">Counter name</label>
+                </div>
+            </div>
+            <div class="modal-footer grey lighten-3">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addNewCounter()">Add</a>
+            </div>
         </div>
-    </div>
 
-    <div id="modalDeletePlayer" class="modal">
-        <div class="modal-content grey lighten-3">
-            <h4>Delete player?</h4>
-            <p>This cannot be undone.</p>
+        <div id="modalDeletePlayer" class="modal">
+            <div class="modal-content grey lighten-3">
+                <h4>Delete player?</h4>
+                <p>This cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+                <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="deletePlayer()">Delete</a>
+            </div>
         </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-            <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="deletePlayer()">Delete</a>
-        </div>
-    </div>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/angular.min.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/angular.min.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
 
-    <script>
+        <script>
 
-    </script>
+        </script>
 
 </body>
 

@@ -132,20 +132,6 @@ app.controller("myCtrl", function ($scope, $timeout) {
         $scope.savePlayers();
     }
 
-    // $scope.adjustExperienceCounter = function (playertoAlter, difference) {
-    //     playertoAlter.experience += difference;
-    //     if (playertoAlter.experience < 0)
-    //         playertoAlter.experience = 0;
-    //     $scope.savePlayers();
-    // }
-
-    // $scope.adjustPoisonCounter = function (playertoAlter, difference) {
-    //     playertoAlter.poison += difference;
-    //     if (playertoAlter.poison < 0)
-    //         playertoAlter.poison = 0;
-    //     $scope.savePlayers();
-    // }
-
 });
 
 
