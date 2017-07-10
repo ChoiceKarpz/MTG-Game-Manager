@@ -11,9 +11,11 @@ app.controller("myCtrl", function ($scope, $timeout) {
     $scope.currentID = $scope.players.length;
     $scope.playerName;
     $scope.indexPlayerToDelete;
+    $scope.newCounterName;
+    $scope.indexPlayerToAddCounter;
 
     $scope.addPlayer = function () {
-        var newPlayer = { id: $scope.currentID, name: $scope.playerName, life: 40, damage: [], experience: 0, poison: 0 };
+        var newPlayer = { id: $scope.currentID, name: $scope.playerName, life: 40, damage: [], counters: [] };
 
         $scope.currentID++;
 
@@ -45,6 +47,10 @@ app.controller("myCtrl", function ($scope, $timeout) {
         $scope.indexPlayerToDelete = $scope.players.indexOf(playerToDelete);
     }
 
+    $scope.getPlayerToAddCounter = function (playerToAddCounter) {
+        $scope.indexPlayerToAddCounter = $scope.players.indexOf(playerToAddCounter);
+    }
+
     $scope.deletePlayer = function () {
         //delete the player from other players under commander damage, before deleting themselves
 
@@ -61,7 +67,11 @@ app.controller("myCtrl", function ($scope, $timeout) {
         $scope.players.splice($scope.indexPlayerToDelete, 1);
         $scope.savePlayers();
         $('#modalDeletePlayer').modal('close');
-        Materialize.toast('Player deleted!', 4000)
+        Materialize.toast('Player deleted!', 4000);
+
+        $timeout(function () {
+            $scope.refreshPlayers()
+        }, 0);
     }
 
     $scope.savePlayers = function () {
@@ -87,19 +97,42 @@ app.controller("myCtrl", function ($scope, $timeout) {
         $scope.savePlayers();
     }
 
-    $scope.adjustExperienceCounter = function (playertoAlter, difference) {
-        playertoAlter.experience += difference;
-        if (playertoAlter.experience < 0)
-            playertoAlter.experience = 0;
+    $scope.addNewCounter = function() {
+        $scope.players[$scope.indexPlayerToAddCounter].counters.push({name: $scope.newCounterName, value: 0});
+        $('#modalAddCounter').modal('close');
+        $scope.newCounterName = '';
         $scope.savePlayers();
     }
 
-    $scope.adjustPoisonCounter = function (playertoAlter, difference) {
-        playertoAlter.poison += difference;
-        if (playertoAlter.poison < 0)
-            playertoAlter.poison = 0;
+    $scope.alterCounter = function(counterToAlter, difference) {
+        counterToAlter.value += difference;
         $scope.savePlayers();
     }
+
+    $scope.deleteCounter = function(player, counterToDelete) {
+        for (var i = 0; i < player.counters.length; i++) {
+            if(player.counters[i] == counterToDelete) {
+                 player.counters.splice(i, 1);
+                 break;
+            }
+               
+        }
+        $scope.savePlayers();
+    }
+
+    // $scope.adjustExperienceCounter = function (playertoAlter, difference) {
+    //     playertoAlter.experience += difference;
+    //     if (playertoAlter.experience < 0)
+    //         playertoAlter.experience = 0;
+    //     $scope.savePlayers();
+    // }
+
+    // $scope.adjustPoisonCounter = function (playertoAlter, difference) {
+    //     playertoAlter.poison += difference;
+    //     if (playertoAlter.poison < 0)
+    //         playertoAlter.poison = 0;
+    //     $scope.savePlayers();
+    // }
 
 });
 

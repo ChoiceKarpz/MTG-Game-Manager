@@ -100,7 +100,7 @@
                                 <li>
                                     <div class="collapsible-header white black-text"><i class="material-icons">grade</i>Commander Damage</div>
                                     <div class="collapsible-body white black-text">
-                                        <ul class="collapsible" data-collapsible="accordion">
+                                        <ul class="collapsible" data-collapsible="accordion" data-ng-show="p.damage.length > 0">
                                             <li data-ng-repeat="otherPlayer in p.damage track by $index">
                                                 <div class="collapsible-header">{{otherPlayer.name}}: {{otherPlayer.damageReceived}}</div>
                                                 <div class="collapsible-body">
@@ -127,31 +127,25 @@
                                 <li>
                                     <div class="collapsible-header white black-text"><i class="material-icons">swap_vert</i>Counters</div>
                                     <div class="collapsible-body white black-text">
+                                        <ul class="collapsible" data-collapsible="accordion" data-ng-show="p.counters.length > 0">
+                                            <li data-ng-repeat="counter in p.counters track by $index">
+                                                <div class="collapsible-header">{{counter.name}}: {{counter.value}}</div>
+                                                <div class="collapsible-body">
+                                                    <div class="row">
+                                                        <div class="col s6">
+                                                            <a class="waves-effect waves-light teal darken-3 btn" data-ng-click="alterCounter(counter, -1)"><b>-</b></a>
+                                                        </div>
+                                                        <div class="col s6">
+                                                            <a class="waves-effect waves-light teal darken-3 right btn" data-ng-click="alterCounter(counter, 1)"><b>+</b></a>
+                                                        </div>
+                                                    </div>
+                                                    <p class="center-align"><a class="waves-effect waves-light grey darken-4 btn" data-ng-click="deleteCounter(p, counter)">Delete Counter</a></p>
+                                                </div>
+                                            </li>
+                                        </ul>
                                         <div class="row">
-                                            <div class="col s12">
-                                                <p class="center-align">Experience counters: {{p.experience}}</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col s6">
-                                                <a class="waves-effect waves-light left teal darken-3 btn" data-ng-click="adjustExperienceCounter(p, -1)"><b>-</b></a>
-                                            </div>
-                                            <div class="col s6">
-                                                <a class="waves-effect waves-light right teal darken-3 btn" data-ng-click="adjustExperienceCounter(p, 1)"><b>+</b></a>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col s12">
-                                                <p class="center-align">Poison counters: {{p.poison}}</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col s6">
-                                                <a class="waves-effect waves-light left teal darken-3 btn" data-ng-click="adjustPoisonCounter(p, -1)"><b>-</b></a>
-                                            </div>
-                                            <div class="col s6">
-                                                <a class="waves-effect waves-light right teal darken-3 btn" data-ng-click="adjustPoisonCounter(p, 1)"><b>+</b></a>
-                                            </div>
+                                            <p class="center-align"><a class="waves-effect waves-light teal darken-3 btn" href="#modalAddCounter"
+                                                    data-ng-click="getPlayerToAddCounter(p)">Add Counter</a></p>
                                         </div>
                                     </div>
                                 </li>
@@ -194,6 +188,21 @@
         <div class="modal-footer grey lighten-3">
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addPlayer()">Add</a>
+        </div>
+    </div>
+
+    <div id="modalAddCounter" class="modal">
+        <div class="modal-content grey lighten-3">
+            <h4>Add counter</h4>
+            <div class="row input-field">
+                <i class="material-icons prefix">swap_vert</i>
+                <input type="text" id="counterNameInput" data-ng-model="newCounterName">
+                <label for="counterNameInput">Counter name</label>
+            </div>
+        </div>
+        <div class="modal-footer grey lighten-3">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addNewCounter()">Add</a>
         </div>
     </div>
 
