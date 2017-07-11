@@ -179,13 +179,13 @@
         </div>
 
         <div id="gameLog">
-            <div class="input-field">
-                <input class="transparent white-text" id="searchLog" type="search" data-ng-model="logQuery">
+            <div class="input-field" id="searchLog">
+                <input class="transparent white-text" type="search" data-ng-model="logQuery">
                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                <ul class="collection" data-ng-show="gameLog.length > 0">
-                    <li class="collection-item grey lighten-3" data-ng-repeat="event in gameLog | orderBy:'$index':true | filter : logQuery">{{event}}</li>
-                </ul>
             </div>
+            <ul class="collection" data-ng-show="gameLog.length > 0">
+                <li class="collection-item grey lighten-3" data-ng-repeat="event in gameLog | orderBy:'$index':true | filter : logQuery">{{event.text}}{{event.difference}}{{event.endTotal}}</li>
+            </ul>
         </div>
 
 

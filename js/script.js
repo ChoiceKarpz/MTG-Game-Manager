@@ -35,7 +35,8 @@ app.controller("myCtrl", function ($scope, $timeout) {
         }
 
         $scope.players.push(newPlayer);
-        $scope.gameLog.push("Added " + newPlayer.name + " as a player");
+        $scope.gameLog.push({ text: "Added " + newPlayer.name + " [id = " + newPlayer.id + "]", difference: "", endTotal: "" });
+        $scope.concatGameLog();
         $scope.playerName = "";
 
         $scope.setNameInputFocus();
@@ -68,9 +69,10 @@ app.controller("myCtrl", function ($scope, $timeout) {
             }
         }
 
-        $scope.temp = $scope.players[$scope.indexWorkingPlayer].name;
+        $scope.temp = $scope.players[$scope.indexWorkingPlayer];
         $scope.players.splice($scope.indexWorkingPlayer, 1);
-        $scope.gameLog.push("Deleted " + $scope.temp);
+        $scope.gameLog.push({ text: "Deleted " + $scope.temp.name + " [id = " + $scope.temp.id + "]", difference: "", endTotal: "" });
+        $scope.concatGameLog();
         $scope.savePlayers();
         $('#modalDeletePlayer').modal('close');
         Materialize.toast('Player deleted!', 4000);
@@ -96,14 +98,16 @@ app.controller("myCtrl", function ($scope, $timeout) {
 
     $scope.adjustPlayerLife = function (playertoAlter, difference) {
         playertoAlter.life = Math.round(playertoAlter.life + difference);
-        $scope.gameLog.push("Life of " + playertoAlter.name + " altered by " + difference + " (" + playertoAlter.life + ")");
+        $scope.gameLog.push({ text: "Life of " + playertoAlter.name + " altered by ", difference: difference, endTotal: " (" + playertoAlter.life + ")" });
+        $scope.concatGameLog();
         $scope.savePlayers();
 
     }
 
     $scope.adjustCommanderDamage = function (defendingPlayer, attackingPlayer, difference) {
         attackingPlayer.damageReceived += difference;
-        $scope.gameLog.push("Commander damage to " + defendingPlayer.name + " by " + attackingPlayer.name + " altered by " + difference + " (" + attackingPlayer.damageReceived + ")");
+        $scope.gameLog.push({ text: "Commander damage to " + defendingPlayer.name + " by " + attackingPlayer.name + " altered by ", difference: difference, endTotal: " (" + attackingPlayer.damageReceived + ")" });
+        $scope.concatGameLog();
         $scope.savePlayers();
     }
 
@@ -117,7 +121,8 @@ app.controller("myCtrl", function ($scope, $timeout) {
 
     $scope.alterCounter = function (player, counterToAlter, difference) {
         counterToAlter.value += difference;
-        $scope.gameLog.push(counterToAlter.name + " counters for " + player.name + " altered by " + difference + " (" + counterToAlter.value + ")");
+        $scope.gameLog.push({ text: counterToAlter.name + " counters for " + player.name + " altered by ", difference: difference, endTotal: " (" + counterToAlter.value + ")" });
+        $scope.concatGameLog();
         $scope.savePlayers();
     }
 
@@ -132,10 +137,24 @@ app.controller("myCtrl", function ($scope, $timeout) {
         $scope.savePlayers();
     }
 
+    $scope.concatGameLog = function () {
+        if ($scope.gameLog.length >= 2) {
+            for (var i = 0; i < $scope.gameLog.length - 1; i++) {
+                if ($scope.gameLog[i].text == $scope.gameLog[i + 1].text) {
+                    $scope.gameLog[i + 1].difference += $scope.gameLog[i].difference;
+                    $scope.gameLog.splice(i, 1);
+                }
+            }
+        }
+
+    }
+
 });
 
 
 $(document).ready(function () {
     $('.collapsible').collapsible();
     $('.modal').modal();
+
 });
+
