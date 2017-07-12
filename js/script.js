@@ -1,5 +1,5 @@
 var app = angular.module("myApp", []);
-app.controller("myCtrl", function ($scope, $timeout) {
+app.controller("myCtrl", function ($scope, $timeout, $http) {
 
     if (sessionStorage.getItem("players") === null) {
         $scope.players = [];
@@ -167,5 +167,22 @@ app.controller("myCtrl", function ($scope, $timeout) {
         }
     }
 
-});
+    //Card Lookup Shit
 
+    $scope.cardSearchName = "";
+
+    $http.get("https://api.magicthegathering.io/v1/cards?name=" + $scope.cardSearchName)
+        .then(function (response) {
+            $scope.cardsArray = response.data;
+        });
+
+    $scope.searchCards = function () {
+        $http.get("https://api.magicthegathering.io/v1/cards?name=" + $scope.cardSearchName)
+            .then(function (response) {
+                $scope.cardsArray = response.data;
+            });
+    }
+
+
+
+});
