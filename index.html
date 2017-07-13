@@ -57,7 +57,7 @@
                                 <a class="waves-effect waves-light btn-floating right grey darken-4 white-text" href="#modalDeletePlayer" data-ng-click="getWorkingPlayer(p)"><i class="material-icons">delete</i></a>
                             </div>
                         </div>
-                        <div class="row white-text" data-ng-show="p.life == 0">
+                        <div class="row white-text" data-ng-show="p.life <= 0">
                             <p class="center-align"><b>Player is out of life!</b></p>
                         </div>
                         <div ng-repeat="otherPlayer in p.damage track by $index">
@@ -179,19 +179,37 @@
                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
             </div>
             <p class="center-align"><a class="waves-effect waves-light btn" data-ng-click="searchCards()">Search</a></p>
-            <ul class="collapsible" data-collapsible="accordion">
+            <ul data-ng-show="cardsArray.cards.length > 0" class="collapsible popout" data-collapsible="accordion">
                 <li data-ng-repeat="details in cardsArray.cards track by $index">
-                    <div class="collapsible-header white black-text">{{details.name}}</div>
+                    <div class="collapsible-header white black-text truncate">{{details.name}} ({{details.setName}})</div>
                     <div class="collapsible-body white black-text">
-                        <p>Cost: {{details.manaCost}} (CMC: {{details.cmc}})</p>
+                        <p>Cost: {{details.manaCost}} (Converted Mana Cost: {{details.cmc}})</p>
                         <p>{{details.type}}</p>
                         <p>{{details.text}}</p>
                         <p><i>{{details.flavor}}</i></p>
-                        <p><b>{{details.power}}/{{details.toughness}}</b></p>
-
-                        <ul>
-                            <li data-ng-repeat="ruling in details.rulings track by $index">
-                                {{ruling.date}} - {{ruling.text}}
+                        <p data-ng-show="details.hasOwnProperty('power')"><b>{{details.power}}/{{details.toughness}}</b></p>
+                        <ul data-ng-show="details.rulings.length > 0" class="collapsible" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header white-black-text">Rulings</div>
+                                <div class="collapsible-body white black-text">
+                                    <ul class="collection">
+                                        <li class="collection-item" data-ng-repeat="ruling in details.rulings track by $index">
+                                            {{ruling.date}} - {{ruling.text}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul data-ng-show="details.legalities.length > 0" class="collapsible" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header white-black-text">Legalities</div>
+                                <div class="collapsible-body white black-text">
+                                    <ul class="collection">
+                                        <li class="collection-item" data-ng-repeat="legal in details.legalities track by $index">
+                                            {{legal.format}}: {{legal.legality}}
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -226,6 +244,16 @@
                     <div class="card-panel teal">
                         <span class="white-text">
                             <p class="center-align">Special thanks to the teams behind AngularJS, Materialize and the MTG API. Without their amazing efforts, this project wouldn't be possible.</p>
+                         </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card-panel teal">
+                        <span class="white-text">
+                            <p class="center-align">This is an independantly developed tool made in my spare time, and is not sponsored by any individual or group.</p>
+                            <p class="center-align">This software does not reflect or represent the ideals or philosophies of Wizards of the Coast<sup>&trade;</sup>, and I do not claim any ownership of Wizards of the Coast<sup>&trade;</sup> or their intellectual property.</p>
                          </span>
                     </div>
                 </div>

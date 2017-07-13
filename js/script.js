@@ -113,7 +113,7 @@ app.controller("myCtrl", function ($scope, $timeout, $http) {
                             }
                         }
 
-                         for (var i = 0; i < $scope.players[indexWorkingPlayer].counters.length; i++) {
+                        for (var i = 0; i < $scope.players[indexWorkingPlayer].counters.length; i++) {
                             if (tempPlayer.counters[i].value != $scope.players[indexWorkingPlayer].counters[i].value) {
                                 $scope.gameLog.push(tempPlayer.counters[i].name + " counters for " + tempPlayer.name + " altered by " + ($scope.players[indexWorkingPlayer].counters[i].value - tempPlayer.counters[i].value) + " (" + $scope.players[indexWorkingPlayer].counters[i].value + ")");
                             }
@@ -167,19 +167,19 @@ app.controller("myCtrl", function ($scope, $timeout, $http) {
         $scope.savePlayers();
     }
 
+
     //Card Lookup Shit
 
     $scope.cardSearchName = "";
-
-    $http.get("https://api.magicthegathering.io/v1/cards?name=" + $scope.cardSearchName)
-        .then(function (response) {
-            $scope.cardsArray = response.data;
-        });
 
     $scope.searchCards = function () {
         $http.get("https://api.magicthegathering.io/v1/cards?name=" + $scope.cardSearchName)
             .then(function (response) {
                 $scope.cardsArray = response.data;
+                $timeout(function () {
+                     $('.collapsible').collapsible();
+                }, 0);
+
             });
     }
 
