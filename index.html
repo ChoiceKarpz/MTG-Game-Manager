@@ -45,7 +45,7 @@
                 <div class="card blue hoverable">
                     <div class="card-content white-text">
                         <div class="row">
-                            <a href="#{{p.id}}">
+                            <a data-ng-click="getWorkingPlayer(p)" href="#{{p.id}}">
                                 <div class="border col s10">
                                     <span class="card-title">
                                     <p><b>{{p.name}}</b></p>
@@ -206,7 +206,7 @@
             </div>
             <ul class="collection" data-ng-show="gameLog.length > 0">
                 <li class="collection-item grey lighten-3" data-ng-repeat="event in gameLog | orderBy:'$index':true | filter : logQuery track by $index">
-                    {{event.text}}{{event.difference}}{{event.endTotal}}
+                    {{event}}
                 </li>
             </ul>
         </div>
@@ -216,9 +216,17 @@
                 <div class="col s12">
                     <div class="card-panel teal">
                         <span class="white-text">
-                            <p class="center-align"><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p>
-                            
-          </span>
+                            <p class="center-align"><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p>    
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card-panel teal">
+                        <span class="white-text">
+                            <p class="center-align">Special thanks to the teams behind AngularJS, Materialize and the MTG API. Without their amazing efforts, this project wouldn't be possible.</p>
+                         </span>
                     </div>
                 </div>
             </div>
