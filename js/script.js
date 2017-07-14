@@ -1,6 +1,16 @@
 var app = angular.module("myApp", []);
 app.controller("myCtrl", function ($scope, $timeout, $http) {
 
+    if (sessionStorage.getItem("tab") === null) {
+
+    }
+    else {
+        var selectedTab = sessionStorage.getItem("tab");
+        selectedTab = selectedTab.substring(1);
+        $('ul.tabs').tabs('select_tab', selectedTab);
+    }
+
+
     if (sessionStorage.getItem("players") === null) {
         $scope.players = [];
     }
@@ -20,6 +30,12 @@ app.controller("myCtrl", function ($scope, $timeout, $http) {
     $scope.newCounterName;
     var indexWorkingPlayer;
     var tempPlayer;
+
+    $("ul.tabs").tabs({
+        onShow: function (tab) {
+            sessionStorage.setItem("tab", $(".active").attr('href'));
+        }
+    });
 
     $timeout(function () {
         $scope.refreshPlayers()
@@ -207,7 +223,5 @@ app.controller("myCtrl", function ($scope, $timeout, $http) {
 
             });
     }
-
-
 
 });

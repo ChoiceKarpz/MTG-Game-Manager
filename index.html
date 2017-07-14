@@ -30,10 +30,10 @@
             </div>
             <div class="nav-content red darken-3">
                 <ul class="tabs tabs-fixed-width tabs-transparent">
-                    <li class="tab"><a class="active" href="#playerManagement">Players</a></li>
-                    <li class="tab"><a href="#gameLog">Log</a></li>
-                    <li class="tab"><a href="#cardLookup">Lookup</a></li>
-                    <li class="tab"><a href="#about">About</a></li>
+                    <li class="tab"><a id="playerTab" href="#playerManagement">Players</a></li>
+                    <li class="tab"><a id="gameLogTab" href="#gameLog">Log</a></li>
+                    <li class="tab"><a id="cardLookupTab" href="#cardLookup">Lookup</a></li>
+                    <li class="tab"><a id="aboutTab" href="#about">About</a></li>
                 </ul>
             </div>
         </nav>
@@ -51,7 +51,7 @@
                                     <span class="card-title">
                                     <p><b data-ng-bind="p.name"></b></p>
                                     <p>&hearts; <span data-ng-bind="p.life"></span></p>
-                                </span>
+                                    </span>
                                 </div>
                             </a>
                             <div class="col s2">
