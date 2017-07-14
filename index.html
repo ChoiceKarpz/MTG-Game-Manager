@@ -186,10 +186,12 @@
                     <div class="collapsible-header white black-text truncate">{{details.name}} ({{details.setName}})</div>
                     <div class="collapsible-body white black-text">
                         <div>
-                            Cost: <span data-ng-bind="details.manaCost" class="manaCost"></span> (<span data-ng-bind="details.cmc"></span>)
+                            Cost: <span data-ng-bind="details.manaCost" class="manaCost"></span>
+                            <br /> 
+                            CMC: <span><i class="ms ms-cost ms-{{details.cmc}}"></i></span>
                         </div>
                         <p data-ng-bind="details.type"></p>
-                        <p data-ng-bind="details.text"></p>
+                        <p class="cardText" data-ng-bind="details.text"></p>
                         <p><i><span data-ng-bind="details.flavor"></span></i></p>
                         <p data-ng-show="details.hasOwnProperty('power')"><b><span data-ng-bind="details.power"></span> / <span data-ng-bind="details.toughness"></span></b></p>
                         <ul data-ng-show="details.rulings.length > 0" class="collapsible" data-collapsible="accordion">
@@ -210,7 +212,7 @@
                                 <div class="collapsible-body white black-text">
                                     <ul class="collection">
                                         <li class="collection-item" data-ng-repeat="legal in details.legalities track by $index">
-                                             <span data-ng-bind="legal.format"></span>: <span  data-ng-bind="legal.legality"></span>
+                                            <span data-ng-bind="legal.format"></span>: <span data-ng-bind="legal.legality"></span>
                                         </li>
                                     </ul>
                                 </div>

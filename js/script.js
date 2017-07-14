@@ -97,7 +97,6 @@ app.controller("myCtrl", function ($scope, $timeout, $http) {
             {
                 ready: function () { // Callback for Modal open. Modal and trigger parameters available.
                     tempPlayer = JSON.parse(JSON.stringify($scope.players[indexWorkingPlayer]));
-                    alert(tempPlayer.name + " " + tempPlayer.life);
                 },
 
                 complete: function () {
@@ -178,21 +177,21 @@ app.controller("myCtrl", function ($scope, $timeout, $http) {
     $scope.searchCards = function () {
         $http.get("https://api.magicthegathering.io/v1/cards?name=" + $scope.cardSearchName)
             .then(function (response) {
-                // $(".cardLookup").html(defaultCardLookup);
-               
+
                 $scope.cardsArray = response.data;
                 $timeout(function () {
                     $('.collapsible').collapsible();
 
-                    $(".manaCost").html(function (_, html) {
-
-                        return html.replace(/{B}/g, "<i class=\"ms ms-b\"></i>")
-                            .replace(/{R}/g, "<i class=\"ms ms-r\"></i>")
-                            .replace(/{W}/g, "<i class=\"ms ms-w\"></i>")
-                            .replace(/{G}/g, "<i class=\"ms ms-g\"></i>")
-                            .replace(/{U}/g, "<i class=\"ms ms-u\"></i>")
-                            .replace(/\{(\d)\}/g, "<i class=\"ms ms-$1\"></i>");
+                    $(".manaCost, .cardText").html(function (_, html) {
+                        return html.replace(/\{([\d]|[A-Z])\}/g, function (fullMatch, group1) {
+                            group1 = group1.toLowerCase();
+                            if (group1 == "t") {
+                                group1 = "tap";
+                            }
+                            return "<i class='ms ms-cost ms-" + group1 + "'></i>";
+                        })
                     });
+
                 }, 0);
 
 
