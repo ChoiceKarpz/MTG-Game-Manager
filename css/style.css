@@ -22,3 +22,7 @@ input[type=range] + .thumb {
   input[type=range] + .thumb.active .value {
     color: black;
   }
+ 
+  .cardText {
+    white-space:pre-wrap;
+  }

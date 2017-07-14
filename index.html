@@ -187,11 +187,10 @@
                     <div class="collapsible-body white black-text">
                         <div>
                             Cost: <span data-ng-bind="details.manaCost" class="manaCost"></span>
-                            <br /> 
-                            CMC: <span><i class="ms ms-cost ms-{{details.cmc}}"></i></span>
+                            <br /> CMC: <span><i class="ms ms-cost ms-{{details.cmc}}"></i></span>
                         </div>
                         <p data-ng-bind="details.type"></p>
-                        <p class="cardText" data-ng-bind="details.text"></p>
+                        <p data-ng-class="{'planeswalker': details.type.indexOf('Planeswalker') >= 0}" class="cardText" data-ng-bind="details.text"></p>
                         <p><i><span data-ng-bind="details.flavor"></span></i></p>
                         <p data-ng-show="details.hasOwnProperty('power')"><b><span data-ng-bind="details.power"></span> / <span data-ng-bind="details.toughness"></span></b></p>
                         <ul data-ng-show="details.rulings.length > 0" class="collapsible" data-collapsible="accordion">

@@ -188,9 +188,19 @@ app.controller("myCtrl", function ($scope, $timeout, $http) {
                             if (group1 == "t") {
                                 group1 = "tap";
                             }
+                            if (group1 == "q") {
+                                group1 = "untap";
+                            }
                             return "<i class='ms ms-cost ms-" + group1 + "'></i>";
                         })
                     });
+
+                    $(".planeswalker").html(function (_, html) {
+                        return html.replace(/\+([\d])\:/g, "<i class=\"ms ms-loyalty-up ms-loyalty-$1\"></i>")
+                            .replace(/\−([\d])\:/g, "<i class=\"ms ms-loyalty-down ms-loyalty-$1\"></i>");
+
+                    });
+
 
                 }, 0);
 
