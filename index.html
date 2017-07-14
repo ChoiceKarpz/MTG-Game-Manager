@@ -12,8 +12,10 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
+    <link href="css/mana.css" rel="stylesheet" type="text/css" />
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" />
+
 
 </head>
 
@@ -183,18 +185,20 @@
                 <li data-ng-repeat="details in cardsArray.cards track by $index">
                     <div class="collapsible-header white black-text truncate">{{details.name}} ({{details.setName}})</div>
                     <div class="collapsible-body white black-text">
-                        <p>Cost: {{details.manaCost}} (Converted Mana Cost: {{details.cmc}})</p>
-                        <p>{{details.type}}</p>
-                        <p>{{details.text}}</p>
-                        <p><i>{{details.flavor}}</i></p>
-                        <p data-ng-show="details.hasOwnProperty('power')"><b>{{details.power}}/{{details.toughness}}</b></p>
+                        <div>
+                            Cost: <span data-ng-bind="details.manaCost" class="manaCost"></span> (<span data-ng-bind="details.cmc"></span>)
+                        </div>
+                        <p data-ng-bind="details.type"></p>
+                        <p data-ng-bind="details.text"></p>
+                        <p><i><span data-ng-bind="details.flavor"></span></i></p>
+                        <p data-ng-show="details.hasOwnProperty('power')"><b><span data-ng-bind="details.power"></span> / <span data-ng-bind="details.toughness"></span></b></p>
                         <ul data-ng-show="details.rulings.length > 0" class="collapsible" data-collapsible="accordion">
                             <li>
                                 <div class="collapsible-header white-black-text">Rulings</div>
                                 <div class="collapsible-body white black-text">
                                     <ul class="collection">
                                         <li class="collection-item" data-ng-repeat="ruling in details.rulings track by $index">
-                                            {{ruling.date}} - {{ruling.text}}
+                                            <span data-ng-bind="ruling.date"></span> - <span data-ng-bind="ruling.text"></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -206,7 +210,7 @@
                                 <div class="collapsible-body white black-text">
                                     <ul class="collection">
                                         <li class="collection-item" data-ng-repeat="legal in details.legalities track by $index">
-                                            {{legal.format}}: {{legal.legality}}
+                                             <span data-ng-bind="legal.format"></span>: <span  data-ng-bind="legal.legality"></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -243,7 +247,7 @@
                 <div class="col s12">
                     <div class="card-panel teal">
                         <span class="white-text">
-                            <p class="center-align">Special thanks to the teams behind AngularJS, Materialize and the MTG API. Without their amazing efforts, this project wouldn't be possible.</p>
+                            <p class="center-align">Special thanks to the teams behind AngularJS, Materialize and the MTG API, and "The Magic: the Gathering mana symbol font!" by andrewgioia. Without their amazing efforts, this project wouldn't be possible.</p>
                          </span>
                     </div>
                 </div>

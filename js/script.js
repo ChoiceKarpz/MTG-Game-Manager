@@ -172,13 +172,29 @@ app.controller("myCtrl", function ($scope, $timeout, $http) {
 
     $scope.cardSearchName = "";
 
+    // var defaultCardLookup = $("#cardLookup").html();
+    // console.log(defaultCardLookup);
+
     $scope.searchCards = function () {
         $http.get("https://api.magicthegathering.io/v1/cards?name=" + $scope.cardSearchName)
             .then(function (response) {
+                // $(".cardLookup").html(defaultCardLookup);
+               
                 $scope.cardsArray = response.data;
                 $timeout(function () {
-                     $('.collapsible').collapsible();
+                    $('.collapsible').collapsible();
+
+                    $(".manaCost").html(function (_, html) {
+
+                        return html.replace(/{B}/g, "<i class=\"ms ms-b\"></i>")
+                            .replace(/{R}/g, "<i class=\"ms ms-r\"></i>")
+                            .replace(/{W}/g, "<i class=\"ms ms-w\"></i>")
+                            .replace(/{G}/g, "<i class=\"ms ms-g\"></i>")
+                            .replace(/{U}/g, "<i class=\"ms ms-u\"></i>")
+                            .replace(/\{(\d)\}/g, "<i class=\"ms ms-$1\"></i>");
+                    });
                 }, 0);
+
 
             });
     }
